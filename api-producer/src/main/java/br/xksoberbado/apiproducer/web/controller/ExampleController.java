@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Month;
 
 @Slf4j
 @RestController
@@ -20,14 +20,17 @@ public class ExampleController {
     private final RabbitTemplate rabbitTemplate;
 
     @PostMapping
-    public void send() {
+    public void send(@RequestBody final Person person) {
         log.info("Sending message...");
 
-        rabbitTemplate.convertAndSend(
-            "my-exchange", "my.key", new Person("Igor", LocalDate.of(1993, Month.APRIL, 1))
-        );
+        rabbitTemplate.convertAndSend("my-exchange", "my.key", person);
     }
 
-    public record Person(String name, LocalDate birthdate) implements Serializable {
+    public record Person(String name,
+                         LocalDate birthdate,
+                         Gender gender) implements Serializable {
+        enum Gender {
+            MALE, FEMALE
+        }
     }
 }

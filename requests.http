@@ -1,1 +1,12 @@
-POST http://localhost:8080/v1
+### POST
+POST localhost:8080/v1
+Content-Type: application/json
+
+{
+  "name": "Igor",
+  "birthdate": "1993-04-01",
+  "gender": "MALE"
+}
+
+###
+
