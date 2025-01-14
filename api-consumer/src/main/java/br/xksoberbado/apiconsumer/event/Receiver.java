@@ -17,6 +17,10 @@ public class Receiver {
     @RabbitListener(queues = "my-queue")
     public void receive(@Payload @Valid final Person person) {
         log.info("Received: {}", person);
+
+//        if (person.gender() == Person.Gender.MALE) {
+//            throw new RuntimeException("TESTE");
+//        }
     }
 
     public record Person(String name,
