@@ -14,6 +14,8 @@ import java.time.LocalDate;
 @Component
 public class Receiver {
 
+    private Integer count = 1;
+
     @RabbitListener(queues = "my-queue")
     public void receive(@Payload @Valid final Person person) {
         log.info("Received: {}", person);
@@ -21,6 +23,11 @@ public class Receiver {
         if (person.gender() == Person.Gender.FEMALE) {
             throw new RuntimeException("Erro simulado.");
         }
+    }
+
+    @RabbitListener(queues = "my-count-queue")
+    public void count(@Payload @Valid final Person person) {
+        log.info("Received: {}, Count: {}", person, count++);
     }
 
     public record Person(String name,

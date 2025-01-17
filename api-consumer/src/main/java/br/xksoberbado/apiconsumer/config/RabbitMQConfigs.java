@@ -17,6 +17,7 @@ public class RabbitMQConfigs {
     public static final String DL_EXCHANGE_NAME = "";
 
     private static final String QUEUE_NAME = "my-queue";
+    private static final String COUNT_QUEUE_NAME = "my-count-queue";
     private static final String DL_QUEUE_NAME = "my-queue.dlq";
 
     private final LocalValidatorFactoryBean validator;
@@ -38,6 +39,13 @@ public class RabbitMQConfigs {
     }
 
     @Bean
+    Queue otherQueue() {
+        return QueueBuilder
+            .durable(COUNT_QUEUE_NAME)
+            .build();
+    }
+
+    @Bean
     TopicExchange exchange() {
         return new TopicExchange(EXCHANGE_NAME);
     }
@@ -46,6 +54,14 @@ public class RabbitMQConfigs {
     Binding binding(final Queue queue,
                     final TopicExchange exchange) {
         return BindingBuilder.bind(queue)
+            .to(exchange)
+            .with("my.#");
+    }
+
+    @Bean
+    Binding binding2(final Queue otherQueue,
+                     final TopicExchange exchange) {
+        return BindingBuilder.bind(otherQueue)
             .to(exchange)
             .with("my.#");
     }
