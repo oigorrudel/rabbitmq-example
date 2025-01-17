@@ -18,9 +18,9 @@ public class Receiver {
     public void receive(@Payload @Valid final Person person) {
         log.info("Received: {}", person);
 
-//        if (person.gender() == Person.Gender.MALE) {
-//            throw new RuntimeException("TESTE");
-//        }
+        if (person.gender() == Person.Gender.FEMALE) {
+            throw new RuntimeException("Erro simulado.");
+        }
     }
 
     public record Person(String name,

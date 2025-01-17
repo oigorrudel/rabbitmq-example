@@ -3,7 +3,7 @@ POST localhost:8080/v1
 Content-Type: application/json
 
 {
-  "name": "Igor",
+  "name": "Teste",
   "birthdate": "1993-04-01",
   "gender": "MALE"
 }
