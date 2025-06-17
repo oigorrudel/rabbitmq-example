@@ -13,7 +13,6 @@ Content-Type: application/json
 ### FANOUT
 POST localhost:8080/v1/persons
 exchange: ex.fanout
-rk: *
 Content-Type: application/json
 
 {
