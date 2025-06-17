@@ -34,7 +34,20 @@ Content-Type: application/json
   "gender": "MALE"
 }
 
+### TOPIC
+POST localhost:8080/v1/persons
+exchange: ex.topic
+rk: a.1.b
+Content-Type: application/json
+
+{
+  "name": "João",
+  "birthdate": "1993-04-01",
+  "gender": "MALE"
+}
+
 ###
+
 
 
 
