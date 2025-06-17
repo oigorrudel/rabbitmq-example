@@ -1,12 +1,40 @@
-### POST
-POST localhost:8080/v1
+### DIRECT
+POST localhost:8080/v1/persons
+exchange: ex.direct
+rk: a.b.c
 Content-Type: application/json
 
 {
-  "name": "Teste",
+  "name": "João",
+  "birthdate": "1993-04-01",
+  "gender": "MALE"
+}
+
+### FANOUT
+POST localhost:8080/v1/persons
+exchange: ex.fanout
+rk: *
+Content-Type: application/json
+
+{
+  "name": "João",
+  "birthdate": "1993-04-01",
+  "gender": "MALE"
+}
+
+### HEADERS
+POST localhost:8080/v1/persons
+exchange: ex.headers
+hhh: 111
+Content-Type: application/json
+
+{
+  "name": "João",
   "birthdate": "1993-04-01",
   "gender": "MALE"
 }
 
 ###
+
+
 

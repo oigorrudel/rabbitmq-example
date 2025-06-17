@@ -1,34 +1,58 @@
 package br.xksoberbado.apiproducer.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("v1")
+@RequestMapping("v1/persons")
 @RequiredArgsConstructor
 public class ExampleController {
 
     private final RabbitTemplate rabbitTemplate;
 
     @PostMapping
-    public void send(@RequestBody final Person person) {
+    public void send(@RequestHeader String exchange,
+                     @RequestHeader(required = false) String rk,
+                     @RequestHeader(required = false) String hhh,
+                     @RequestBody final Person person) {
         log.info("Sending message...");
 
-        rabbitTemplate.convertAndSend("my-exchange", "my.key", person);
+        Optional.ofNullable(hhh)
+            .ifPresentOrElse(
+                k -> sendWithHeaders(exchange, k, person),
+                () -> send(exchange, rk, person));
+    }
+
+    @SneakyThrows
+    private void sendWithHeaders(final String exchange,
+                                 final String header,
+                                 final Person person) {
+        final MessagePostProcessor postProcessor = message -> {
+            message.getMessageProperties().setHeader("hhh", header);
+
+            return message;
+        };
+
+        rabbitTemplate.convertAndSend(exchange, "", person, postProcessor);
+    }
+
+    private void send(final String exchange,
+                      final String rk,
+                      final Person person) {
+        rabbitTemplate.convertAndSend(exchange, rk, person);
     }
 
     public record Person(String name,
                          LocalDate birthdate,
-                         Gender gender) implements Serializable {
+                         Gender gender) {
         enum Gender {
             MALE, FEMALE
         }
