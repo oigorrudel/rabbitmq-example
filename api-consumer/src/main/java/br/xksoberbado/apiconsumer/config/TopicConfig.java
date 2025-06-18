@@ -7,8 +7,6 @@ import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Map;
-
 @Configuration
 public class TopicConfig {
 
@@ -23,7 +21,7 @@ public class TopicConfig {
 
     @Bean
     Queue queueA1() {
-        return QueueUtil.buildQueue(QUEUE1_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE1_NAME);
     }
 
     @Bean
@@ -33,7 +31,7 @@ public class TopicConfig {
 
     @Bean
     Queue queueA2() {
-        return QueueUtil.buildQueue(QUEUE2_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE2_NAME);
     }
 
     @Bean

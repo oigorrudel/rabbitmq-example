@@ -20,7 +20,7 @@ public class DirectConfig {
 
     @Bean
     Queue queue() {
-        return QueueUtil.buildQueue(QUEUE_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE_NAME);
     }
 
     @Bean

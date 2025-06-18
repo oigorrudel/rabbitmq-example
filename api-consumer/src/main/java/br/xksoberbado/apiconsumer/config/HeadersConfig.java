@@ -23,7 +23,7 @@ public class HeadersConfig {
 
     @Bean
     Queue queue111() {
-        return QueueUtil.buildQueue(QUEUE1_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE1_NAME);
     }
 
     @Bean
@@ -33,7 +33,7 @@ public class HeadersConfig {
 
     @Bean
     Queue queue222() {
-        return QueueUtil.buildQueue(QUEUE2_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE2_NAME);
     }
 
     @Bean

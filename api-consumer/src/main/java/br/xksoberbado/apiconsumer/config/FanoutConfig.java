@@ -21,7 +21,7 @@ public class FanoutConfig {
 
     @Bean
     Queue queue1() {
-        return QueueUtil.buildQueue(QUEUE1_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE1_NAME);
     }
 
     @Bean
@@ -31,7 +31,7 @@ public class FanoutConfig {
 
     @Bean
     Queue queue2() {
-        return QueueUtil.buildQueue(QUEUE2_NAME, EXCHANGE_NAME);
+        return QueueUtil.buildQueue(QUEUE2_NAME);
     }
 
     @Bean

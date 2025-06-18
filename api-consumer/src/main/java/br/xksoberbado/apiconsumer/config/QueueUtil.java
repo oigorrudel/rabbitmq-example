@@ -10,11 +10,10 @@ public final class QueueUtil {
 
     private static final String DLQ_SUFFIX = ".dlq";
 
-    static Queue buildQueue(final String queueName,
-                            final String dlExchange) {
+    static Queue buildQueue(final String queueName) {
         return QueueBuilder
             .durable(queueName)
-            .deadLetterExchange(dlExchange)
+            .deadLetterExchange("")
             .deadLetterRoutingKey(queueName + DLQ_SUFFIX)
             .build();
     }
