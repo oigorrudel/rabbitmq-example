@@ -45,8 +45,16 @@ Content-Type: application/json
   "gender": "MALE"
 }
 
+### EXCHANGES
+POST localhost:8080/v1/persons
+exchange: exchange-a
+rk: redirect
+Content-Type: application/json
+
+{
+  "name": "João",
+  "birthdate": "1993-04-01",
+  "gender": "MALE"
+}
+
 ###
-
-
-
-
