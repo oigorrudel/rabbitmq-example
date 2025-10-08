@@ -13,6 +13,11 @@ public class ExchangesBindingExample {
 
     @RabbitListener(queues = "queue-b")
     public void receive(@Payload @Valid final Person person) {
-        log.info("Received: {}", person);
+        log.info("Received queue-b: {}", person);
+    }
+
+    @RabbitListener(queues = "redirected")
+    public void receive2(@Payload @Valid final Person person) {
+        log.info("Received redirected: {}", person);
     }
 }

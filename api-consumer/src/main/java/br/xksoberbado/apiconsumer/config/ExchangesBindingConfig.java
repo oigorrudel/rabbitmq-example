@@ -26,7 +26,8 @@ public class ExchangesBindingConfig {
     Declarables exchangesBindingQueues() {
         return new Declarables(
             getQueue(),
-            QueueUtil.buildDlq(QUEUE_NAME)
+            QueueUtil.buildDlq(QUEUE_NAME),
+            otherQueue()
         );
     }
 
@@ -34,12 +35,17 @@ public class ExchangesBindingConfig {
     Declarables bindings() {
         return new Declarables(
             BindingBuilder.bind(exchangeB()).to(exchangeA()).with("redirect"),
-            BindingBuilder.bind(getQueue()).to(exchangeB()).with("redirect")
+            BindingBuilder.bind(getQueue()).to(exchangeB()).with("redirect"),
+            BindingBuilder.bind(otherQueue()).to(exchangeA()).with("redirect")
         );
     }
 
     private static Queue getQueue() {
         return QueueUtil.buildQueue(QUEUE_NAME);
+    }
+
+    private Queue otherQueue() {
+        return QueueUtil.buildQueue("redirected");
     }
 
     private DirectExchange exchangeB() {
