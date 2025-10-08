@@ -18,7 +18,7 @@ public class DirectConfig {
     }
 
     @Bean
-    Declarables queues() {
+    Declarables directQueues() {
         return new Declarables(
             List.of(
                 queue(),

@@ -23,7 +23,7 @@ public class ExchangesBindingConfig {
     }
 
     @Bean
-    Declarables queues() {
+    Declarables exchangesBindingQueues() {
         return new Declarables(
             getQueue(),
             QueueUtil.buildDlq(QUEUE_NAME)
