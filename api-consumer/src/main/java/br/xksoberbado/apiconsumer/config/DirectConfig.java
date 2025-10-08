@@ -1,11 +1,10 @@
 package br.xksoberbado.apiconsumer.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class DirectConfig {
@@ -19,13 +18,17 @@ public class DirectConfig {
     }
 
     @Bean
-    Queue queue() {
-        return QueueUtil.buildQueue(QUEUE_NAME);
+    Declarables queues() {
+        return new Declarables(
+            List.of(
+                queue(),
+                QueueUtil.buildDlq(QUEUE_NAME)
+            )
+        );
     }
 
-    @Bean
-    Queue dlqQueue() {
-        return QueueUtil.buildDlq(QUEUE_NAME);
+    private Queue queue() {
+        return QueueUtil.buildQueue(QUEUE_NAME);
     }
 
     @Bean

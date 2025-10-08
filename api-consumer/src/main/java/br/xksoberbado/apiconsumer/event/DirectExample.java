@@ -11,8 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class DirectExample {
 
+    private Integer count = 0;
+
     @RabbitListener(queues = "a.b.c")
     public void receive(@Payload @Valid final Person person) {
-        log.info("Received: {}", person);
+        log.info("Received: {}, Count: {}", person, count);
+
+        count++;
+
+        if (Person.Gender.MALE == person.gender()) {
+            throw new RuntimeException("testing");
+        }
     }
 }

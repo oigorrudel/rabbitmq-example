@@ -6,7 +6,7 @@ public record Person(String name,
                      LocalDate birthdate,
                      Gender gender) {
 
-    enum Gender {
+    public enum Gender {
         MALE, FEMALE
     }
 }
